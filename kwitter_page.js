@@ -15,8 +15,12 @@ var firebaseConfig = {
   room_name=localStorage.getItem("room_name");
    
 
-function getData() {firebase.database().ref("/"+room_name).on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key; childData.val(); if(childKey!="purpose")
+function getData() 
 {
+      firebase.database().ref("/"+room_name).on('value', function(snapshot) { document.getElementById("output").innerHTML = ""; snapshot.forEach(function(childSnapshot) { childKey = childSnapshot.key; childData = childSnapshot.val(); if(childKey != "purpose") {
+
+     
+     
      firebase_message_id= childKey;
      message_data = childData;
 
@@ -25,9 +29,9 @@ function getData() {firebase.database().ref("/"+room_name).on('value', function(
      Name = message_data['name'];
      message = message_data['message'];
      like = message_data['like'];
-     name_with_tag = "<h4>"+ Name +"<img class='user_tick' src='tick.png'</h4>";
+     name_with_tag = "<h4>"+ Name +"<img class='user_tick' src='tick.png'></h4>";
      message_with_tag = "<h4 class='message_h4>" + message + "</h4>";
-     like_button = "<button class='btn btn-warning' id="+firebase_message_id+" value="+like+" onclick='updateLike(this.id)'>";
+     like_button = "<button class='btn btn-warning' id="+firebase_message_id+" value="+like+" onclick='updateLIKE(this.id)'>";
      span_with_tag = "<span class='glyphicon glyphicon-thumbs-up'>like:"+like+"</span></button><hr>";
 
 
@@ -49,7 +53,8 @@ function send()
 
 function updateLIKE(message_id)
 {
-      console.log("clicked on like button -" + message_Id);
+      console.log("clicked on like button -" + message_id);
+      button_id = message_id;
       like= document.getElementById(button_id).value;
       updated_like= Number(likes);
       console.log(updated_likes);
